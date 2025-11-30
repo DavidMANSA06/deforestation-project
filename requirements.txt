@@ -1,0 +1,12 @@
+torch
+torchvision
+timm  # pour ViT et autres modèles pré-entraînés
+numpy
+pandas
+matplotlib
+scikit-learn
+opencv-python
+tqdm
+torchmetrics
+grad-cam
+jupyterlab
