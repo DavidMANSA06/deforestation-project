@@ -10,5 +10,4 @@ tqdm
 torchmetrics
 grad-cam
 jupyterlab
-datasets  
-torcham
+datasets

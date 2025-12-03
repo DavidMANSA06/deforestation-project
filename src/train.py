@@ -5,7 +5,7 @@ import torch.nn as nn
 from torch.optim import Adam
 from tqdm import tqdm
 from torchvision.models import resnet18, ResNet18_Weights
-from src.data_loader import get_dataloaders
+from data_loader import get_dataloaders
 
 # ------------- CONFIGURATION ----------------
 device = "cuda" if torch.cuda.is_available() else "cpu"
@@ -18,14 +18,15 @@ train_loader, val_loader, test_loader = get_dataloaders(batch_size=batch_size)
 print(f"Train batches: {len(train_loader)}, Val batches: {len(val_loader)}, Test batches: {len(test_loader)}")
 
 # ------------- MODEL -----------------------
-model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
+model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1) # ou ResNet18_Weights.DEFAULT
+
 # Adapter la dernière couche pour classification binaire
 model.fc = nn.Linear(model.fc.in_features, 2)
 model = model.to(device)
 
 # ------------- LOSS & OPTIMIZER -------------
 criterion = nn.CrossEntropyLoss()
-optimizer = Adam(model.parameters(), lr=learning_rate)
+optimizer = Adam(model.parameters(), lr=learning_rate)  #l adapte automatiquement le taux d'apprentissage pour chaque paramètre 
 
 # ------------- TRAINING LOOP ----------------
 for epoch in range(1, num_epochs + 1):
