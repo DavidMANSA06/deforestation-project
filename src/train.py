@@ -5,7 +5,7 @@ import torch.nn as nn
 from torch.optim import Adam
 from tqdm import tqdm
 from torchvision.models import resnet18, ResNet18_Weights
-from data_loader import get_dataloaders
+from src.data_loader import get_dataloaders
 
 # ------------- CONFIGURATION ----------------
 device = "cuda" if torch.cuda.is_available() else "cpu"
