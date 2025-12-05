@@ -4,18 +4,18 @@ from torchcam.utils import overlay_mask
 from torchvision import transforms
 import torch
 import matplotlib.pyplot as plt
-from src.data_loader import get_dataloaders
+from data_loader import get_dataloaders
 import torchvision.transforms.functional as F
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 batch_size = 8
 
-# 1️⃣ Data
+# 1 Data
 _, _, test_loader = get_dataloaders(batch_size=batch_size)
 images, labels = next(iter(test_loader))
 images, labels = images.to(device), labels.to(device)
 
-# 2️⃣ Model
+# 2 Model
 model = resnet18(weights=ResNet18_Weights.IMAGENET1K_V1)
 model.fc = torch.nn.Linear(model.fc.in_features, 2)
 model.load_state_dict(torch.load("models/resnet18_deforestation.pth"))

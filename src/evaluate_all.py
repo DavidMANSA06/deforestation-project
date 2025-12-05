@@ -64,21 +64,13 @@ model.load_state_dict(torch.load("models/resnet18_deforestation.pth", map_locati
 model.to(device)
 results.append(evaluate_model(model, "ResNet18"))
 
-# ResNet50
-print("Evaluating ResNet50...")
-model = resnet50(weights=ResNet50_Weights.IMAGENET1K_V1)
-model.fc = nn.Linear(2048, 2)
-# Si vous avez entraîné ResNet50, charger les poids
-# model.load_state_dict(torch.load("models/resnet50_deforestation.pth"))
-model.to(device)
-# results.append(evaluate_model(model, "ResNet50"))
 
 # ViT
 print("Evaluating ViT...")
 model = timm.create_model('vit_base_patch16_224', pretrained=True, num_classes=2)
-# model.load_state_dict(torch.load("models/vit_deforestation.pth"))
+model.load_state_dict(torch.load("models/vit_deforestation.pth", map_location=device))
 model.to(device)
-# results.append(evaluate_model(model, "ViT-Base"))
+results.append(evaluate_model(model, "ViT-Base"))
 
 # === TABLEAU COMPARATIF ===
 df = pd.DataFrame(results)
